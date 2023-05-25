@@ -1,18 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { useState } from "react";
 import { redirect } from "next/navigation";
 
-export default function Login() {
+export default function CreateAccount() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [haveUser, setHaveUser] = useState(false);
 
-  const signIn = async (e: { preventDefault: () => void }) => {
+  const signUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    await signInWithEmailAndPassword(auth, email, password).catch((err) => {
+    await createUserWithEmailAndPassword(auth, email, password).catch((err) => {
       console.log(err);
     });
   };
@@ -20,8 +23,6 @@ export default function Login() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setHaveUser(true);
-    } else {
-      console.log("no user");
     }
   });
 
@@ -30,10 +31,10 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className="sign-up-container">
       <h1>BrainBuilders</h1>
-      <h2>Login page</h2>
-      <form onSubmit={signIn}>
+      <h2>Create an account</h2>
+      <form onSubmit={signUp}>
         <label htmlFor="fname">Email:</label>
         <br />
         <input
@@ -50,11 +51,9 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Sign In</button>
-        <input type="reset" id="sbutton" name="sbutton" value="Reset" />
+        <button type="submit">Sign up</button>
       </form>
-      <a href="/create-account"> New Account? </a> <br />
-      <a href="https://www.google.co.nz"> Remember password? </a>
+      <a href="/">Login page</a>
     </div>
   );
 }
