@@ -1,17 +1,19 @@
 "use client";
 
 import "./style1.css";
-import FlashcardBuilder from "./FlashcardBuilder";
 import Banner from "./Banner";
-import { CSSBaseLine, Container } from "@mui/material";
+import DeckList from "./DeckList";
+import AccountMenu from "./Account";
+import { CssBaseline, Container } from "@mui/material";
 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function app() {
   const [haveUser, setHaveUser] = useState(true);
+  const [userId, setUserId] = useState("");
 
   const logOut = async () => {
     await signOut(auth)
@@ -26,6 +28,8 @@ export default function app() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setHaveUser(true);
+      setUserId(user.uid);
+      console.log(user.uid);
     } else {
       setHaveUser(false);
     }
@@ -35,16 +39,17 @@ export default function app() {
     redirect("/");
   }
 
-    return (
-      <main>
-        <div className="App">
-          <Banner />
-          <Container maxWidth="sm">
-            <FlashcardBuilder />
-          </Container>
-          <button onClick={logOut}>Sign out</button>
+  return (
+    <main>
+      <div className="App">
+        <Banner />
+        <div className="user">
+          <AccountMenu haveUser={haveUser} />
         </div>
-      </main>
-    );
-  }
-
+        <Container maxWidth="lg">
+          <DeckList />
+        </Container>
+      </div>
+    </main>
+  );
+}
