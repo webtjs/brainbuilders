@@ -1,0 +1,15 @@
+.sign-up-container {
+    text-align: center;
+    margin: 20px;
+    background-color: lightyellow;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+h1 {
+    font-family: fantasy;
+    font-size: 40px;
+}

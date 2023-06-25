@@ -1,0 +1,40 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+  
+h1 {
+    font-size: 40px;
+    font-family: fantasy;
+    font-weight: bold;
+    margin: 7px;
+  }
+  
+table {
+    width: 100%;
+}
+  
+.bot {
+    background-color: cornflowerblue;
+    margin-top: 5px;
+    padding-top: 1px;
+    padding-bottom: 20px;
+}
+
+.login {
+    text-align: center;
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: aliceblue;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+
+
+
+
+

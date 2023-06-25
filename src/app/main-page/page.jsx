@@ -1,11 +1,16 @@
 "use client";
 
+import "./style1.css";
+import FlashcardBuilder from "./FlashcardBuilder";
+import Banner from "./Banner";
+import { CSSBaseLine, Container } from "@mui/material";
+
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-export default function Home() {
+export default function app() {
   const [haveUser, setHaveUser] = useState(true);
 
   const logOut = async () => {
@@ -30,10 +35,16 @@ export default function Home() {
     redirect("/");
   }
 
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <button onClick={logOut}>Sign out</button>
-    </div>
-  );
-}
+    return (
+      <main>
+        <div className="App">
+          <Banner />
+          <Container maxWidth="sm">
+            <FlashcardBuilder />
+          </Container>
+          <button onClick={logOut}>Sign out</button>
+        </div>
+      </main>
+    );
+  }
+

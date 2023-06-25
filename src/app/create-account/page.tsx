@@ -7,6 +7,15 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import "./style3.css";
+
+//MUI import for aesthetic features
+import  Button from "@mui/material/Button";
+import  TextField  from "@mui/material/TextField";
+import InputAdornment from '@mui/material/InputAdornment';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
@@ -27,7 +36,7 @@ export default function CreateAccount() {
   });
 
   if (haveUser) {
-    redirect("/home");
+    redirect("/");
   }
 
   return (
@@ -35,24 +44,50 @@ export default function CreateAccount() {
       <h1>BrainBuilders</h1>
       <h2>Create an account</h2>
       <form onSubmit={signUp}>
-        <label htmlFor="fname">Email:</label>
         <br />
-        <input
-          placeholder="Email..."
-          type="email"
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircleIcon />
+              </InputAdornment>
+            ),
+          }}
           onChange={(e) => setEmail(e.target.value)}
+          helperText="Input your email as username"
+          label="Email..."
+          variant="outlined"
+          type="email"
+          
         />
         <br />
-        <label htmlFor="lname">Password:</label>
         <br />
-        <input
-          placeholder="Password..."
-          type="password"
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockPersonIcon />
+              </InputAdornment>
+            ),
+          }}
           onChange={(e) => setPassword(e.target.value)}
+          label="Password..."
+          variant="outlined"
+          type="password"
+          
+          InputLabelProps={{
+            shrink: true,
+          }}
+          
+          helperText="Please input password"
         />
         <br />
-        <button type="submit">Sign up</button>
+        <br></br>
+        <Button variant="contained" type="submit">Sign up</Button>
       </form>
+
+    <hr></hr>
+
       <a href="/">Login page</a>
     </div>
   );
