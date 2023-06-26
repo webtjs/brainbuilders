@@ -10,7 +10,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
-export default function Test({ params }: any) {
+export default function Practice({ params }: any) {
   const isMounted = useRef(false);
   // User states
   const [userId, setUserId] = useState("");
