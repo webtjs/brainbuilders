@@ -7,13 +7,13 @@ import { redirect } from "next/navigation";
 import "./style.css";
 
 //Things from material MUI
-import  Button from "@mui/material/Button";
-import LoginIcon from '@mui/icons-material/Login';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import  TextField  from "@mui/material/TextField";
-import InputAdornment from '@mui/material/InputAdornment';
-import LockPersonIcon from '@mui/icons-material/LockPerson';
+import Button from "@mui/material/Button";
+import LoginIcon from "@mui/icons-material/Login";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import LockPersonIcon from "@mui/icons-material/LockPerson";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,11 +35,9 @@ export default function Login() {
     }
   });
 
-   
   if (haveUser) {
     redirect("/main-page");
   }
-  
 
   return (
     <div className="login">
@@ -83,14 +81,18 @@ export default function Login() {
         <br />
         <br />
         <br />
-        <Button variant="contained" type="submit" endIcon={<LoginIcon />}>Sign In</Button>
+        <Button variant="contained" type="submit" endIcon={<LoginIcon />}>
+          Sign In
+        </Button>
         &ensp;
-        <Button variant="contained" type="reset" endIcon={<DeleteIcon />}>Reset</Button>
+        <Button variant="contained" type="reset" endIcon={<DeleteIcon />}>
+          Reset
+        </Button>
       </form>
       <br />
       <hr></hr>
       <a href="/create-account"> New Account? </a> <br />
-      <a href="https://www.google.co.nz"> Remember password? </a>
+      {/* <a href="https://www.google.co.nz"> Remember password? </a> */}
     </div>
   );
 }

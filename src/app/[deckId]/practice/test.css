@@ -1,0 +1,30 @@
+.App {
+    /* === Sizing === */
+    width: 100vw;
+    height: 100vh;
+  
+    /* === Content Alignment === */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+button {
+  padding: 16px 8px;
+  width: 100%;
+  margin-top: 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #808080;
+  color: #f8f8f8;
+}
+
+input {
+  padding: 16px 8px;
+  width: 93%;
+  margin-top: 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+}

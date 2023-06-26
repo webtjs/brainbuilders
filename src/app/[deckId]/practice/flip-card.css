@@ -1,0 +1,11 @@
+.flip-card-container{
+    /* === Sizing === */
+    height: 500px;
+    width: 300px;
+    perspective: 1000px;
+}
+
+body {
+    margin: 0;
+    /* background-color: #1f2430; */
+  }

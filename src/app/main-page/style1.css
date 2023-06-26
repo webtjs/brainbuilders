@@ -20,3 +20,14 @@ table {
     padding-top: 1px;
     padding-bottom: 20px;
 }
+
+.user{
+    position: absolute;
+    right: 24px;
+    top: 84px;
+}
+
+.deck{
+    margin: 0;
+    padding: 0;
+}

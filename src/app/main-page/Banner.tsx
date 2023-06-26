@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { AppBar, Toolbar } from "@mui/material";
-import CreationPage from "./CreationPage";
-import  Button from "@mui/material/Button";
 
 export default function Banner() {
   const nameState = useState("<Anonymous user>");
@@ -18,10 +16,6 @@ export default function Banner() {
         </Toolbar>
       </AppBar>
       <h1>Brain Builders</h1>
-      <Button variant="outlined" href="/create-cards">Make cards</Button>
-      &ensp;
-      &ensp;
-      <Button variant="outlined" href="/start-practice">Start practicing</Button>
     </header>
   );
 }
