@@ -23,9 +23,9 @@ export default function DeckList() {
     setDmOpen(false);
     if (deckName == "") return;
     const deckRef = doc(db, userId, deckName);
-    setDoc(deckRef, { dummy: "value" }, { merge: true });
-    console.log(deckName);
-    window.location.reload();
+    setDoc(deckRef, { dummy: "value" }, { merge: true }).then(() => {
+      window.location.reload();
+    });
   };
 
   useEffect(() => {
