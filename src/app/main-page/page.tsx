@@ -11,7 +11,7 @@ import { auth } from "@/config/firebase";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function app() {
+export default function MainPage() {
   const [haveUser, setHaveUser] = useState(true);
   const [userId, setUserId] = useState("");
 

@@ -12,7 +12,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
 
-export default function app({ params }: any) {
+export default function CreateCards({ params }: any) {
   //New flashcards
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
