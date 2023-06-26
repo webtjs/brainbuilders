@@ -4,7 +4,7 @@ import { storage } from "@/config/firebase";
 import "./card.css";
 import "./transition.css";
 
-export default function CardMedia({ currentFlashcard }) {
+export default function CardMedia({ currentFlashcard }: any) {
   const [mediaList, setMediaList] = useState<never[] | string[]>([]);
   const userId = "user-id";
   const deckId = "cs1231";
