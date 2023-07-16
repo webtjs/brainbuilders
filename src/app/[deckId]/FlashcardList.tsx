@@ -48,7 +48,7 @@ export default function FlashcardList({ deckId }: { deckId: string }) {
       >
         {flashcardList.map((flashcard) => (
           <Grid item xs={3} md={2.4} lg={2} key={flashcard.id}>
-            <Flashcard flashcard={flashcard} />
+            <Flashcard flashcard={flashcard} userId={userId} deckId={deckId} />
           </Grid>
         ))}
         <Grid item xs={3} md={2.4} lg={2}>
