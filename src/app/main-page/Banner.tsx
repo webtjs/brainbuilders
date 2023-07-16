@@ -1,22 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, Toolbar } from "@mui/material";
 
 //Import from firebase
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { auth } from "@/config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Banner() {
-  const [name, setName]  = useState("anonymous user") ;
+  const [name, setName] = useState("anonymous user");
 
-const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    setName(user.email);
-  }else {
-    //nothing happens
-  }
-})
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user && user.email) {
+        setName(user.email);
+      }
+    });
+  }, []);
 
   return (
     <header>
