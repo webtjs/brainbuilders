@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/config/firebase";
+import { auth, db } from "@/config/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
 import "./style.css";
 
@@ -16,14 +17,32 @@ import InputAdornment from "@mui/material/InputAdornment";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [loginCred, setLoginCred] = useState("");
   const [password, setPassword] = useState("");
   const [haveUser, setHaveUser] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const regex =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const signIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    var email = loginCred;
+    if (!regex.test(email)) {
+      const usernameRef = doc(db, "usernames", loginCred);
+      const usernameDoc = await getDoc(usernameRef);
+      if (!usernameDoc.exists()) {
+        setErrorMessage("Username not found");
+        return;
+      }
+      email = usernameDoc.data().email;
+    }
     await signInWithEmailAndPassword(auth, email, password).catch((err) => {
-      console.log(err);
+      console.log(err.code);
+      if (err.code == "auth/user-not-found") {
+        setErrorMessage("Email not found, please check again.");
+      } else if (err.code == "auth/wrong-password") {
+        setErrorMessage("Wrong password, please try again.");
+      }
     });
   };
 
@@ -53,12 +72,13 @@ export default function Login() {
               </InputAdornment>
             ),
           }}
-          helperText="Input your email as username"
-          label="Email..."
+          helperText="Input your email or username"
+          label="Email / Username..."
           variant="outlined"
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          onChange={(e) => setLoginCred(e.target.value)}
         />
+        {errorMessage && <div className="error">{errorMessage}</div>}
         <br />
         <br />
         <TextField

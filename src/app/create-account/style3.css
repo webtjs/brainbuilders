@@ -9,6 +9,12 @@
     padding-bottom: 1%;
 }
 
+.error {
+    font-family: sans-serif;
+    font-size: small;
+    color: crimson;
+}
+
 h1 {
     font-family: fantasy;
     font-size: 40px;

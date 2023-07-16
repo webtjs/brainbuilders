@@ -1,7 +1,14 @@
 import DeckCard from "./DeckCard";
 import { auth, db } from "@/config/firebase";
 import { useEffect, useState } from "react";
-import { doc, setDoc, getDocs, collection } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Grid } from "@mui/material";
 import {
@@ -36,7 +43,8 @@ export default function DeckList() {
           try {
             console.log(user.uid);
             const deckListRef = collection(db, user.uid); // A reference to the collection in firebase
-            const data = await getDocs(deckListRef); // Get all the documents from the collection based on the user id
+            const q = query(deckListRef, where("dummy", "==", "value"));
+            const data = await getDocs(q); // Get all the documents from the collection based on the user id
             const filteredData = data.docs.map((doc) => ({
               // Get the data we are interested in (mainly the deck name which is doc.id)
               ...doc.data(),
