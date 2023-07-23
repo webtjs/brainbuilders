@@ -141,7 +141,7 @@ export default function FriendList() {
                     fullWidth
                     maxWidth="sm"
                   >
-                    <DialogTitle>Copy friend's deck</DialogTitle>
+                    <DialogTitle>Copy deck from friend</DialogTitle>
                     <DialogContent>
                       <TextField
                         autoFocus
