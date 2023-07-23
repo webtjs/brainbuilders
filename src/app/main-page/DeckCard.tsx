@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
  */
 export default function DeckCard({ deckId }: { deckId: string | null }) {
   const editLink = "/" + deckId;
-  const reviewLink = "/" + deckId + "/practice";
+  const reviewLink = "/" + deckId + "/practice-page";
   console.log(editLink);
 
   return (

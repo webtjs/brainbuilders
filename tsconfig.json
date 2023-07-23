@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/main-page/page.tsx", "src/app/main-page/Mainpage.js", "src/app/main-page/FlashcardBuilder.js", "src/app/main-page/CreationPage.js", "src/app/main-page/Banner.js", "src/app/main-page/Banner.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/main-page/page.tsx", "src/app/main-page/Mainpage.js", "src/app/main-page/FlashcardBuilder.js", "src/app/main-page/CreationPage.js", "src/app/main-page/Banner.js", "src/app/main-page/Banner.jsx", "src/app/[deckId]/create-cards/page.jsx"],
   "exclude": ["node_modules"]
 }
