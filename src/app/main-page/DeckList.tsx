@@ -28,7 +28,13 @@ export default function DeckList() {
 
   const submitDeck = () => {
     setDmOpen(false);
-    if (deckName == "") return;
+    if (
+      deckName == "" ||
+      deckName == "profile" ||
+      deckName == "friends" ||
+      deckName == "requests"
+    )
+      return;
     const deckRef = doc(db, userId, deckName);
     setDoc(deckRef, { dummy: "value" }, { merge: true }).then(() => {
       window.location.reload();

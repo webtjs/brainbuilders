@@ -7,22 +7,12 @@ import { AppBar, Toolbar } from "@mui/material";
 import { auth } from "@/config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-export default function Banner() {
-  const [name, setName] = useState("anonymous user");
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user && user.email) {
-        setName(user.email);
-      }
-    });
-  }, []);
-
+export default function Banner({ username }: { username: string }) {
   return (
     <header>
       <AppBar position="relative">
         <Toolbar>
-          <strong>Welcome, {name}. This is where you start.</strong>
+          <strong>Welcome, {username}. This is where you start.</strong>
         </Toolbar>
       </AppBar>
       <h1>Brain Builders</h1>

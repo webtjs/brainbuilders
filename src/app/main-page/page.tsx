@@ -4,16 +4,17 @@ import "./style1.css";
 import Banner from "./Banner";
 import DeckList from "./DeckList";
 import AccountMenu from "./Account";
-import { CssBaseline, Container } from "@mui/material";
+import { Container } from "@mui/material";
 
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/config/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/config/firebase";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function MainPage() {
   const [haveUser, setHaveUser] = useState(true);
-  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("Guest");
 
   const logOut = async () => {
     await signOut(auth)
@@ -25,15 +26,18 @@ export default function MainPage() {
       });
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setHaveUser(false);
+        return;
+      }
       setHaveUser(true);
-      setUserId(user.uid);
-      console.log(user.uid);
-    } else {
-      setHaveUser(false);
-    }
-  });
+      const profileRef = doc(db, user.uid, "profile");
+      const profileData = (await getDoc(profileRef)).data();
+      if (profileData) setUsername(profileData.username);
+    });
+  }, []);
 
   if (!haveUser) {
     redirect("/");
@@ -42,7 +46,7 @@ export default function MainPage() {
   return (
     <main>
       <div className="App">
-        <Banner />
+        <Banner username={username} />
         <div className="user">
           <AccountMenu haveUser={haveUser} />
         </div>

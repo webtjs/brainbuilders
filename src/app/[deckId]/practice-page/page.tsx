@@ -3,13 +3,7 @@
 import "./practice-page.css";
 import FlashcardList from "./flashcard_list";
 import { auth, db } from "@/config/firebase";
-import {
-  getDocs,
-  collection,
-  query,
-  where,
-  getCountFromServer,
-} from "firebase/firestore";
+import { getDocs, collection, query, where, or } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -28,83 +22,27 @@ export default function PracticePage({ params }: any) {
   ];
 
   const [flashcards, setFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
+  const [newFlashcards, setNewFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
+  const [easyFlashcards, setEasyFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
+  const [hardFlashcards, setHardFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
   const [userId, setUserId] = useState("");
   const name = params.deckId;
   const [number, setNumber] = useState(0);
 
-  //   const [cardCollection, setCardCollection] = useState(q);
-
-  const getCount_order = async () => {
-    const cardCollectionRef = collection(db, userId, name, "flashcards");
-    const q = query(cardCollectionRef, where("review", "==", 1));
-    const q1 = query(cardCollectionRef, where("level", "==", 1));
-    const q2 = query(cardCollectionRef, where("level", "==", 2));
-    const snapshot = await getCountFromServer(q);
-    const snapshot1 = await getCountFromServer(q1);
-    const snapshot2 = await getCountFromServer(q2);
-    const q_count = snapshot.data().count;
-    const q1_count = snapshot1.data().count;
-    const q2_count = snapshot2.data().count;
-    if (q_count == 0 && q1_count != 0) {
-      console.log("q empty");
-      const data = await getDocs(q1);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      console.log(q1_count);
-      setFlashcards(filteredData);
-    } else if (q1_count == 0) {
-      console.log("q1 empty");
-      const data = await getDocs(q2);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setFlashcards(filteredData);
-      console.log(q2_count);
-    }
-  };
-
-  //   if (number == 0) {
-  //     getCount_order();
-  //   }
-
   const handle_new = async () => {
-    const cardCollectionRef = collection(db, userId, name, "flashcards");
-    const q = query(cardCollectionRef, where("review", "==", 1));
-    const data = await getDocs(q);
-    const filteredData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setFlashcards(filteredData);
+    setFlashcards(newFlashcards);
     setNumber(1);
     console.log(number);
   };
 
   const handle_easy = async () => {
-    const cardCollectionRef = collection(db, userId, name, "flashcards");
-    const q1 = query(cardCollectionRef, where("level", "==", 1));
-    const data = await getDocs(q1);
-    const filteredData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setFlashcards(filteredData);
+    setFlashcards(easyFlashcards);
     setNumber(2);
     console.log(number);
   };
 
   const handle_hard = async () => {
-    const cardCollectionRef = collection(db, userId, name, "flashcards");
-    const q2 = query(cardCollectionRef, where("level", "==", 2));
-    const data = await getDocs(q2);
-    const filteredData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setFlashcards(filteredData);
+    setFlashcards(hardFlashcards);
     setNumber(1);
     console.log(number);
   };
@@ -120,12 +58,40 @@ export default function PracticePage({ params }: any) {
         //Get flashcard data
         try {
           const cardsRef = collection(db, user.uid, name, "flashcards");
-          const data = await getDocs(query(cardsRef, where("review", "==", 1)));
-          const filteredData = data.docs.map((doc) => ({
+          const dataNew = await getDocs(
+            query(
+              cardsRef,
+              or(where("review", "==", 1), where("review", "==", "1"))
+            )
+          );
+          const filteredData = dataNew.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           }));
           setFlashcards(filteredData);
+          setNewFlashcards(filteredData);
+          const dataEasy = await getDocs(
+            query(
+              cardsRef,
+              or(where("level", "==", 1), where("level", "==", "1"))
+            )
+          );
+          const filteredDataEasy = dataEasy.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setEasyFlashcards(filteredDataEasy);
+          const dataHard = await getDocs(
+            query(
+              cardsRef,
+              or(where("level", "==", 2), where("level", "==", "2"))
+            )
+          );
+          const filteredDataHard = dataHard.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setHardFlashcards(filteredDataHard);
         } catch (err) {
           console.error(err);
         }
@@ -134,14 +100,11 @@ export default function PracticePage({ params }: any) {
     });
   }, []);
 
-  //   const data = getDocs(cardCollectionRef);
-
   return (
     <div className="box">
       <h2>Currently reviewing flashcards for {name}</h2>
       <h4>Select type of cards</h4>
       <ButtonGroup disableElevation variant="outlined">
-        <Button onClick={() => window.location.reload()}>Default</Button>
         <Button onClick={handle_new}>Cards not reviewed</Button>
         <Button onClick={handle_easy}>level: easy</Button>
         <Button onClick={handle_hard}>level: hard</Button>
