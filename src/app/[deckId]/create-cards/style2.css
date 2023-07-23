@@ -8,3 +8,15 @@ h1{
     font-family: fantasy;
     
 }
+
+.radio {
+    text-align: center;
+}
+
+.form_to_sub {
+    align-content: center;
+}
+
+.error {
+    color: red;
+}
