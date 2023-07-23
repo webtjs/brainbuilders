@@ -16,14 +16,7 @@ import { useRouter } from "next/navigation";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 
-export default function PracticePage({
-  params,
-  deckId,
-}: {
-  params: any;
-  deckId: string;
-}) {
-  const reviewLink = "/" + deckId + "/practice";
+export default function PracticePage({ params }: any) {
   const router = useRouter();
 
   const SAMPLE_FLASHCARDS = [
