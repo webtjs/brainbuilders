@@ -105,9 +105,15 @@ export default function Practice({ params }: any) {
               <span>/{flashcardList.length}</span>
             </h2>
             <div className="flip-card-container">
-              <CSSTransition in={showFront} timeout={300} classNames="flip">
-                <Card currentFlashcard={currentFlashcard} />
-              </CSSTransition>
+              {!currentFlashcard.media ? (
+                <CSSTransition in={showFront} timeout={300} classNames="flip">
+                  <Card currentFlashcard={currentFlashcard} />
+                </CSSTransition>
+              ) : (
+                <CSSTransition in={showFront} timeout={300} classNames="flip">
+                  <CardMedia currentFlashcard={currentFlashcard} />
+                </CSSTransition>
+              )}
             </div>
             <br />
             <div>

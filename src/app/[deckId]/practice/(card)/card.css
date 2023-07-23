@@ -68,3 +68,16 @@
   width: 300px;
   perspective: 1000px;
 }
+
+img {
+  max-width: 50%;
+  height: 50%;
+}
+
+.img-box {
+  height: 250px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

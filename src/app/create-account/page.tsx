@@ -37,9 +37,10 @@ export default function CreateAccount() {
     }
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCred) => {
-        await setDoc(usernameRef, { email: email }).catch((err) =>
-          console.error(err)
-        );
+        await setDoc(usernameRef, {
+          email: email,
+          userId: userCred.user.uid,
+        }).catch((err) => console.error(err));
         const userRef = doc(db, userCred.user.uid, "profile");
         await setDoc(userRef, { username: username }).catch((err) =>
           console.error(err)
