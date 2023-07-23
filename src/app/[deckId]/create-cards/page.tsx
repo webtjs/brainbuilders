@@ -3,11 +3,11 @@
 import Link from "next/link";
 //Import from MaterialUI for aesthetic purposes
 import Button from "@mui/material/Button";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 //Access data from other places
 import "./style2.css";
@@ -27,30 +27,30 @@ export default function CreateCards({ params }: any) {
   // User states
   const [userId, setUserId] = useState("");
   const [haveUser, setHaveUser] = useState(true);
-  const [lev, setLev] = useState("Hard");
+  const [lev, setLev] = useState("Easy");
   const [inputError, setInputError] = useState("");
   const deckId = params.deckId;
 
   const sumbitCards = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const answerDisplay = collection(db, "flashcards");
+    const answerDisplay = collection(db, userId, deckId, "flashcards");
     if (front != "" && back != "") {
-    try {
-      await addDoc(answerDisplay, {
-        front: front,
-        back: back,
-        type: type,
-        level: level,
-        review: review,
-      }).then(() => {
-        window.location.reload();
-      });
-    } catch (err) {
-      console.error(err);
+      try {
+        await addDoc(answerDisplay, {
+          front: front,
+          back: back,
+          type: type,
+          level: level,
+          review: review,
+        }).then(() => {
+          window.location.reload();
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setInputError("please input something inside both textbox");
     }
-  } else {
-    setInputError("please input something inside both textbox")
-  }
   };
 
   const textstyle = {
@@ -61,8 +61,8 @@ export default function CreateCards({ params }: any) {
   function setDifficulty() {
     if (lev == "Easy" && level != 1) {
       setLevel(2);
-    } 
-  };
+    }
+  }
   setDifficulty();
 
   useEffect(() => {
@@ -91,7 +91,11 @@ export default function CreateCards({ params }: any) {
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="Easy"
             name="radio-buttons-group"
-            onChange={(e) => setLev(e.target.value)}
+            onChange={(e) => {
+              setLev(e.target.value);
+              if (e.target.value == "Easy") setLevel(1);
+              else setLevel(2);
+            }}
           >
             <FormControlLabel value="Easy" control={<Radio />} label="Easy" />
             <FormControlLabel value="Hard" control={<Radio />} label="Hard" />
