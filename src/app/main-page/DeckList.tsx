@@ -25,10 +25,14 @@ export default function DeckList() {
   const [dmOpen, setDmOpen] = useState(false);
   const [deckName, setDeckName] = useState("");
   const [userId, setUserId] = useState("");
+  const [inputError, setInputError] = useState("");
 
   const submitDeck = () => {
     setDmOpen(false);
-    if (deckName == "") return;
+    if (deckName == "") {
+      setInputError("Please input a deck name")
+      return;
+    };
     const deckRef = doc(db, userId, deckName);
     setDoc(deckRef, { dummy: "value" }, { merge: true }).then(() => {
       window.location.reload();
@@ -110,6 +114,7 @@ export default function DeckList() {
           </Dialog>
         </Grid>
       </Grid>
+      {inputError && <div className="error">{inputError}</div>}
     </div>
   );
 }
