@@ -111,7 +111,7 @@ export default function PracticePage({ params }: any) {
       </ButtonGroup>
       <br></br> <br></br>
       <h4>Cards list</h4>
-      <FlashcardList data={flashcards} />
+      <FlashcardList data={flashcards} deckId={name} />
       <Button variant="outlined" href={"/main-page"}>
         Back
       </Button>

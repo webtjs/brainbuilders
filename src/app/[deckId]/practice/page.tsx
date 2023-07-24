@@ -1,6 +1,7 @@
 "use client";
 
 import "./flip-card.css";
+import { Typography } from "@mui/material";
 import Card from "./(card)/card";
 import CardMedia from "./(card)/cardmedia";
 import { CSSTransition } from "react-transition-group";
@@ -143,9 +144,9 @@ export default function Practice({ params }: any) {
                           : "Next"}
                       </button>
                       {answer == currentFlashcard.back ? (
-                        <p>Correct!</p>
+                        <Typography color="lightgreen">Correct!</Typography>
                       ) : (
-                        <p>Wrong...</p>
+                        <Typography color="crimson">Wrong...</Typography>
                       )}
                     </div>
                   )}
