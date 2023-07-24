@@ -98,12 +98,12 @@ export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
           <Avatar /> Friends
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={logOut}>
           <ListItemIcon>
             <Logout fontSize="small" />

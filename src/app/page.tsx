@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import "./style.css";
 
 //Things from material MUI
@@ -111,8 +112,8 @@ export default function Login() {
       </form>
       <br />
       <hr></hr>
-      <a href="/create-account"> New Account? </a> <br />
-      {/* <a href="https://www.google.co.nz"> Remember password? </a> */}
+      <Link href="/create-account">New Account?</Link>
+      <br />
     </div>
   );
 }

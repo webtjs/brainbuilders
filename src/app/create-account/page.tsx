@@ -8,6 +8,7 @@ import {
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import "./style3.css";
 
 //MUI import for aesthetic features
@@ -131,7 +132,7 @@ export default function CreateAccount() {
 
       <hr></hr>
 
-      <a href="/">Login page</a>
+      <Link href="/">Login page</Link>
     </div>
   );
 }

@@ -85,6 +85,7 @@ export default function FriendList() {
     if (!friendData) return;
     const friendId = friendData.userId;
     await updateDoc(doc(db, userId, "friends"), { [friendId]: false });
+    await updateDoc(doc(db, friendId, "friends"), { [userId]: false });
     setRemoveOpen(false);
     window.location.reload();
   };
