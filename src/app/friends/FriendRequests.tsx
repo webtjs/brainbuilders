@@ -9,7 +9,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import CancelIcon from "@mui/icons-material/Cancel";
 import IconButton from "@mui/material/IconButton";
 import { useState, useEffect } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase";
 
@@ -22,8 +22,21 @@ export default function FriendRequests() {
     const friendData = friendObj.data();
     if (!friendData) return;
     const friendId = friendData.userId;
-    await updateDoc(doc(db, userId, "friends"), { [friendId]: true });
-    await updateDoc(doc(db, userId, "requests"), { [friendId]: false });
+    await setDoc(
+      doc(db, userId, "friends"),
+      { [friendId]: true },
+      { merge: true }
+    );
+    await setDoc(
+      doc(db, friendId, "friends"),
+      { [userId]: true },
+      { merge: true }
+    );
+    await setDoc(
+      doc(db, userId, "requests"),
+      { [friendId]: false },
+      { merge: true }
+    );
     window.location.reload();
   };
 
@@ -32,7 +45,11 @@ export default function FriendRequests() {
     const friendData = friendObj.data();
     if (!friendData) return;
     const friendId = friendData.userId;
-    await updateDoc(doc(db, userId, "requests"), { [friendId]: false });
+    await setDoc(
+      doc(db, userId, "requests"),
+      { [friendId]: false },
+      { merge: true }
+    );
     window.location.reload();
   };
 
