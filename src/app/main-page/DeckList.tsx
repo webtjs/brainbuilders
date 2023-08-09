@@ -29,10 +29,7 @@ export default function DeckList() {
 
   const submitDeck = () => {
     setDmOpen(false);
-    if (deckName == "") {
-      setInputError("Please input a deck name")
-      return;
-    };
+    if (deckName == "") return;
     const deckRef = doc(db, userId, deckName);
     setDoc(deckRef, { dummy: "value" }, { merge: true }).then(() => {
       window.location.reload();

@@ -6,15 +6,15 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
 export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -89,16 +89,21 @@ export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
         <MenuItem onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            router.push("/friends");
+          }}
+        >
           <Avatar /> Friends
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={logOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
