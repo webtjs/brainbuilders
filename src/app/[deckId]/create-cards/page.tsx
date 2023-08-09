@@ -27,7 +27,6 @@ export default function CreateCards({ params }: any) {
   // User states
   const [userId, setUserId] = useState("");
   const [haveUser, setHaveUser] = useState(true);
-  const [lev, setLev] = useState("Hard");
   const [inputError, setInputError] = useState("");
   const deckId = params.deckId;
 
@@ -58,12 +57,14 @@ export default function CreateCards({ params }: any) {
     fontSize: "25px",
   };
 
-  function setDifficulty() {
-    if (lev == "Easy" && level != 1) {
+  const setDifficulty = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("works")
+    if (level == 1) {
       setLevel(2);
-    } 
+      console.log("changed")
+    } else if (level == 2)
+      setLevel(1);
   };
-  setDifficulty();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -91,7 +92,7 @@ export default function CreateCards({ params }: any) {
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="Easy"
             name="radio-buttons-group"
-            onChange={(e) => setLev(e.target.value)}
+            onChange={setDifficulty}
           >
             <FormControlLabel value="Easy" control={<Radio />} label="Easy" />
             <FormControlLabel value="Hard" control={<Radio />} label="Hard" />
