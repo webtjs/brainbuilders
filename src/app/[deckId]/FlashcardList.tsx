@@ -14,6 +14,9 @@ export default function FlashcardList({ deckId }: { deckId: string }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId(user.uid);
+        /**
+         * Get the flashcards data from Firebase
+         */
         const getFlashcardList = async () => {
           try {
             const flashcardListRef = collection(

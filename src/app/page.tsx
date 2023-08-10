@@ -25,6 +25,12 @@ export default function Login() {
   const regex =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
+  /**
+   * Enable user to be authenticated based on the input in the login field
+   * 
+   * @param e The login status of the user
+   * @returns To the mainpage of the account if logged in
+   */
   const signIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     var email = loginCred;
@@ -47,6 +53,9 @@ export default function Login() {
     });
   };
 
+  /**
+   * Set the login state of the user
+   */
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setHaveUser(true);

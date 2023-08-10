@@ -13,6 +13,11 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
+/**
+ * Display the user's account detail 
+ * 
+ * @param[in] A boolean state of whether there's user logged in or not
+ */
 export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,6 +29,9 @@ export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
     setAnchorEl(null);
   };
 
+  /**
+   * Login out of the current account and return to the login page
+   */
   const logOut = async () => {
     setAnchorEl(null);
     await signOut(auth)

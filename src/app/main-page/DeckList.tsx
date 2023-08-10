@@ -1,4 +1,5 @@
 import DeckCard from "./DeckCard";
+//Import from Firebase
 import { auth, db } from "@/config/firebase";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+//Import from MaterialUI
 import { Grid } from "@mui/material";
 import {
   Button,
@@ -27,6 +29,11 @@ export default function DeckList() {
   const [userId, setUserId] = useState("");
   const [inputError, setInputError] = useState("");
 
+  /**
+   * Create new flashcard decks
+   * 
+   * @returns Store the newly created flashcard fields inside Firebase
+   */
   const submitDeck = () => {
     setDmOpen(false);
     if (deckName == "") return;
@@ -36,6 +43,9 @@ export default function DeckList() {
     });
   };
 
+  /**
+   * Display all of the current flashcard decks
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

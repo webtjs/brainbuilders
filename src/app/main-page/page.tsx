@@ -16,6 +16,9 @@ export default function MainPage() {
   const [haveUser, setHaveUser] = useState(true);
   const [username, setUsername] = useState("Guest");
 
+  /**
+   * Enable user to be logged out when lotout button is clicked
+   */
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
@@ -26,6 +29,11 @@ export default function MainPage() {
       });
   };
 
+  /**
+   * Display all of the current flashcard decks
+   * 
+   * @return Display the deckID of each deck
+   */
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {

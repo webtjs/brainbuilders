@@ -30,11 +30,18 @@ export default function Practice({ params }: any) {
   // Flashcard display state
   const [showFront, setShowFront] = useState(true);
 
+  /**
+   * Set submission states
+   */
   const submitAns = () => {
     setSubmitted((prev) => !prev);
   };
 
-  // Fetches the list of flashcards on mount
+  /**
+   * Fetches the list of flashcards on mount
+   * 
+   * @return Display the front or back side of all of the flashcards not reviewed
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

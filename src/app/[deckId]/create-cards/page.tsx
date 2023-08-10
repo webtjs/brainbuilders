@@ -37,10 +37,24 @@ export default function CreateCards({ params }: any) {
   const [inputError, setInputError] = useState("");
   const deckId = params.deckId;
 
+
+  /**
+   * Set the type for the flashcards stored in Firebase
+   * 
+   * @param[in] input The type of flashcards selected
+   */
   const typeChange = (event: SelectChangeEvent) => {
     setType(event.target.value);
   };
 
+  /**
+   * Upload the link of the media into corresponding places inside Firebase
+   * 
+   * @param[in] media The link for the media uploaded
+   * @param flashcardId The id of the flashcards inside Firebase
+   * @param[in] side Whether this media is uploaded to the front or back side of the Falshcard
+   * @returns Store the media into Firebase
+   */
   const mediaUpload = (
     media: File | null,
     flashcardId: string,
@@ -69,6 +83,11 @@ export default function CreateCards({ params }: any) {
       });
   };
 
+  /**
+   * Upload the front and back side of the flashcard, and the card type and media into Firebase
+   * 
+   * @param[in] input Front and back input, card type, card level, and the file uploaded
+   */
   const sumbitCards = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const answerDisplay = collection(db, userId, deckId, "flashcards");
@@ -101,6 +120,11 @@ export default function CreateCards({ params }: any) {
     fontSize: "25px",
   };
 
+  /**
+   * Change the level of difficulty the flashcard is set to
+   * 
+   * @param[in] input The current level of the flashcards
+   */
   const setDifficulty = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("works")
     if (level == 1) {
@@ -109,6 +133,11 @@ export default function CreateCards({ params }: any) {
   };
   setDifficulty();
 
+  /**
+   * Set user id on the banner to the user id inside Firebase
+   * 
+   * @param[in] input The user id stored inside Firebase
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
