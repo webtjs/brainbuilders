@@ -173,7 +173,7 @@ export default function FriendList() {
                     fullWidth
                     maxWidth="sm"
                   >
-                    <DialogTitle>Friend's deck list</DialogTitle>
+                    <DialogTitle>Friend deck list</DialogTitle>
                     <DialogContent>
                       <List>
                         {isLoading && (
