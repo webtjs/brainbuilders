@@ -2,10 +2,16 @@ import Flashcard from "./Flashcard";
 import Link from "next/link";
 import { auth, db } from "@/config/firebase";
 import { useEffect, useState } from "react";
-import { doc, setDoc, getDocs, collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Grid, Button } from "@mui/material";
 
+/**
+ * Displays all the user's flashcards and a button to add a new flashcard
+ * to the current deck
+ *
+ * @param deckId Name of the deck
+ */
 export default function FlashcardList({ deckId }: { deckId: string }) {
   const [userId, setUserId] = useState("");
   const [flashcardList, setFlashcardList] = useState<{ id: string }[]>([]);

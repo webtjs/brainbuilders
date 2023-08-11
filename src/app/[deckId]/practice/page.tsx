@@ -11,6 +11,12 @@ import { getDocs, collection } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
+/**
+ * Practice page for users to review the flashcards in their deck
+ *
+ * @param params Parameters from the url. In this case, the deck name from the
+ * url is passed as one of the parameters.
+ */
 export default function Practice({ params }: any) {
   const isMounted = useRef(false);
   // User states
@@ -143,7 +149,8 @@ export default function Practice({ params }: any) {
                           ? "Finish"
                           : "Next"}
                       </button>
-                      {answer == currentFlashcard.back ? (
+                      {answer.toLowerCase() ==
+                      currentFlashcard.back.toLowerCase() ? (
                         <Typography color="lightgreen">Correct!</Typography>
                       ) : (
                         <Typography color="crimson">Wrong...</Typography>

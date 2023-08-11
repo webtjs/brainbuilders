@@ -17,6 +17,9 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 
+/**
+ * Login page of the application
+ */
 export default function Login() {
   const [loginCred, setLoginCred] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +28,11 @@ export default function Login() {
   const regex =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
+  /**
+   * User sign in using firebase
+   *
+   * @param e Event interface
+   */
   const signIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     var email = loginCred;

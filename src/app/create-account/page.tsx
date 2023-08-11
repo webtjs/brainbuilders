@@ -19,6 +19,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+/**
+ * Create account page for the application
+ */
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -27,6 +30,11 @@ export default function CreateAccount() {
   const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
 
+  /**
+   * Create an account using firebase, user credentials are stored in firebase
+   *
+   * @param e Event interface
+   */
   const signUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const usernameRef = doc(db, "usernames", username);

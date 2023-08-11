@@ -10,6 +10,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Box,
+  CircularProgress,
   TextField,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -25,10 +27,15 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase";
 
+/**
+ * Displays the user's friends and allows them to copy their friend's deck
+ */
 export default function FriendList() {
   const [userId, setUserId] = useState("");
   const [friendList, setFriendList] = useState<string[]>([]);
@@ -36,6 +43,8 @@ export default function FriendList() {
   const [copyOpen, setCopyOpen] = useState(false);
   const [copyError, setCopyError] = useState("");
   const [removeOpen, setRemoveOpen] = useState(false);
+  const [deckList, setDeckList] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const submitDeck = async (username: string) => {
     if (
@@ -69,6 +78,27 @@ export default function FriendList() {
       );
     });
     setCopyOpen(false);
+  };
+
+  const getDeckList = async (username: string) => {
+    try {
+      const friendObj = await getDoc(doc(db, "usernames", username));
+      const friendData = friendObj.data();
+      if (!friendData) return;
+      const friendId = friendData.userId;
+      const deckListRef = collection(db, friendId); // A reference to the collection in firebase
+      const q = query(deckListRef, where("dummy", "==", "value"));
+      const data = await getDocs(q); // Get all the documents from the collection based on the user id
+      const filteredData = data.docs.map((doc) => ({
+        // Get the data we are interested in (mainly the deck name which is doc.id)
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setDeckList(filteredData);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleRemoveOpen = () => {
@@ -126,10 +156,11 @@ export default function FriendList() {
               secondaryAction={
                 <div>
                   <IconButton
-                    aria-label="copy"
+                    aria-label="view"
                     onClick={() => {
                       setCopyOpen(true);
                       setCopyError("");
+                      getDeckList(name);
                     }}
                   >
                     <ContentCopyIcon />
@@ -142,8 +173,26 @@ export default function FriendList() {
                     fullWidth
                     maxWidth="sm"
                   >
-                    <DialogTitle>Copy deck from friend</DialogTitle>
+                    <DialogTitle>Friend's deck list</DialogTitle>
                     <DialogContent>
+                      <List>
+                        {isLoading && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CircularProgress />
+                          </Box>
+                        )}
+
+                        {deckList.map((deck: any) => (
+                          <ListItem key={deck.id}>
+                            <ListItemText primary={deck.id} />
+                          </ListItem>
+                        ))}
+                      </List>
                       <TextField
                         autoFocus
                         margin="dense"

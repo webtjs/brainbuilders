@@ -4,14 +4,12 @@ import "../main-page/style1.css";
 import Banner from "./Banner";
 import FriendBar from "./FriendBar";
 import Link from "next/link";
-import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 
+/**
+ * Layout for the friends page
+ */
 export default function Friends() {
-  const data = { John: "fren", Jack: "fren", Ben: "fren" };
-  const result = Object.keys(data);
-  console.log(result);
-
   return (
     <main>
       <div className="App">

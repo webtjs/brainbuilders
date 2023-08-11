@@ -1,6 +1,11 @@
 import "./card.css";
 import "./transition.css";
 
+/**
+ * Displays the front and back of a flashcard containing media
+ *
+ * @param currentFlashcard An object of the active flashcard
+ */
 export default function CardMedia({ currentFlashcard }: any) {
   return (
     <div className="card">

@@ -20,12 +20,18 @@ import {
   DialogActions,
 } from "@mui/material";
 
+/**
+ * Displays all of the user's decks and a create deck feature
+ */
 export default function DeckList() {
   const [deckList, setDeckList] = useState<{ id: string }[]>([]);
   const [dmOpen, setDmOpen] = useState(false);
   const [deckName, setDeckName] = useState("");
   const [userId, setUserId] = useState("");
 
+  /**
+   * Creates a deck based on the deck name entered by the user with its data being stored in firebase
+   */
   const submitDeck = () => {
     setDmOpen(false);
     if (

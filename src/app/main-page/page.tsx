@@ -12,19 +12,12 @@ import { auth, db } from "@/config/firebase";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 
+/**
+ * Main page of the application
+ */
 export default function MainPage() {
   const [haveUser, setHaveUser] = useState(true);
   const [username, setUsername] = useState("Guest");
-
-  const logOut = async () => {
-    await signOut(auth)
-      .then(() => {
-        setHaveUser(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -48,7 +41,7 @@ export default function MainPage() {
       <div className="App">
         <Banner username={username} />
         <div className="user">
-          <AccountMenu haveUser={haveUser} />
+          <AccountMenu haveUser={haveUser} username={username} />
         </div>
         <Container maxWidth="lg">
           <DeckList />

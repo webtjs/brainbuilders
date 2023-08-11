@@ -67,7 +67,7 @@ export default function Flashcard({ flashcard, userId, deckId }: any) {
         </Button>
         <Dialog
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >

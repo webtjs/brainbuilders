@@ -7,6 +7,12 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import Typography from "@mui/material/Typography";
 
+/**
+ * Search bar for users to enter their friend's username and add them
+ *
+ * @param userId User's uuid which is set by firebase
+ * @returns
+ */
 export default function FriendSearch({ userId }: { userId: string }) {
   const [friendName, setFriendName] = useState("");
   const [error, setError] = useState("");
