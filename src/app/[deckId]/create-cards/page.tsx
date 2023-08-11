@@ -128,19 +128,6 @@ export default function CreateCards({ params }: any) {
   };
 
   /**
-   * Change the level of difficulty the flashcard is set to
-   * 
-   * @param[in] input The current level of the flashcards
-   */
-  const setDifficulty = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("works")
-    if (level == 1) {
-      setLevel(2);
-    } 
-  };
-  setDifficulty();
-
-  /**
    * Set user id on the banner to the user id inside Firebase
    * 
    * @param[in] input The user id stored inside Firebase
@@ -171,7 +158,11 @@ export default function CreateCards({ params }: any) {
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="Easy"
             name="radio-buttons-group"
-            onChange={(e) => setLev(e.target.value)}
+            onChange={(e) => {
+              setLev(e.target.value);
+              if (e.target.value == "Easy") setLevel(1);
+              else setLevel(2);
+            }}
           >
             <FormControlLabel value="Easy" control={<Radio />} label="Easy" />
             <FormControlLabel value="Hard" control={<Radio />} label="Hard" />
