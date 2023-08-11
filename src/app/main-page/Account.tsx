@@ -15,7 +15,7 @@ import { auth } from "@/config/firebase";
 /**
  * Displays an account icon at the top right of the screen
  *
- * @param haveUser A boolean to indicate if there is a user logged in currently
+ * @param[in] haveUser A boolean to indicate if there is a user logged in currently
  * @param username The user's username
  */
 export default function AccountMenu({
@@ -35,6 +35,9 @@ export default function AccountMenu({
     setAnchorEl(null);
   };
 
+  /**
+   * Login out of the current account and return to the login page
+   */
   const logOut = async () => {
     setAnchorEl(null);
     await signOut(auth)

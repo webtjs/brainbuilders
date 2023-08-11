@@ -1,4 +1,5 @@
 import DeckCard from "./DeckCard";
+//Import from Firebase
 import { auth, db } from "@/config/firebase";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+//Import from MaterialUI
 import { Grid } from "@mui/material";
 import {
   Button,
@@ -28,25 +30,25 @@ export default function DeckList() {
   const [dmOpen, setDmOpen] = useState(false);
   const [deckName, setDeckName] = useState("");
   const [userId, setUserId] = useState("");
+  const [inputError, setInputError] = useState("");
 
   /**
-   * Creates a deck based on the deck name entered by the user with its data being stored in firebase
+   * Create a new flashcard deck
+   * 
+   * @returns Store the newly created flashcard deck inside Firebase
    */
   const submitDeck = () => {
     setDmOpen(false);
-    if (
-      deckName == "" ||
-      deckName == "profile" ||
-      deckName == "friends" ||
-      deckName == "requests"
-    )
-      return;
+    if (deckName == "") return;
     const deckRef = doc(db, userId, deckName);
     setDoc(deckRef, { dummy: "value" }, { merge: true }).then(() => {
       window.location.reload();
     });
   };
 
+  /**
+   * Display all of the current flashcard decks
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -122,6 +124,7 @@ export default function DeckList() {
           </Dialog>
         </Grid>
       </Grid>
+      {inputError && <div className="error">{inputError}</div>}
     </div>
   );
 }

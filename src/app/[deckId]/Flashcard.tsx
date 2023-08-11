@@ -33,6 +33,9 @@ export default function Flashcard({ flashcard, userId, deckId }: any) {
     setOpen(true);
   };
 
+  /**
+   * Delete the flashcards selected and delete them inside Firebase
+   */
   const handleClose = async () => {
     const deleteRef = doc(db, userId, deckId, "flashcards", flashcardId);
     await deleteDoc(deleteRef)

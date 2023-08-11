@@ -43,10 +43,23 @@ export default function EditFlashcard({ params }: any) {
   const deckId = params.deckId;
   const flashcardId = params.flashcardId;
 
+  /**
+   * Set the type for the flashcards stored in Firebase
+   * 
+   * @param[in] input The type of flashcards selected
+   */
   const typeChange = (event: SelectChangeEvent) => {
     setType(event.target.value);
   };
 
+  /**
+   * Upload the link of the media into corresponding places inside Firebase
+   * 
+   * @param[in] media The link for the media uploaded
+   * @param flashcardId The id of the flashcards inside Firebase
+   * @param[in] side Whether this media is uploaded to the front or back side of the Falshcard
+   * @returns Store the media into Firebase
+   */
   const mediaUpload = (
     media: File | null,
     flashcardId: string,
@@ -72,6 +85,14 @@ export default function EditFlashcard({ params }: any) {
       });
   };
 
+  /**
+   * Validates the input of the updated version of flashcards and store them inside Firebase
+   * 
+   * @pre The flashcard is already created and stored inside Firebase
+   * 
+   * @param[in] input The updated information inputted into the flashcards
+   * @returns error message if nothing is inputted during the update
+   */
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (
@@ -104,6 +125,13 @@ export default function EditFlashcard({ params }: any) {
     fontSize: "25px",
   };
 
+  /**
+   * Show all of the flashcards created in the current deck including its type
+   * 
+   * @pre All of the cards displayed are stored inside Firebase under a specific field with the same DeckID
+   * 
+   * @return The front and back side of each flashcard including its type
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

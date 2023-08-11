@@ -31,9 +31,10 @@ export default function CreateAccount() {
   const [emailError, setEmailError] = useState("");
 
   /**
-   * Create an account using firebase, user credentials are stored in firebase
-   *
+   * Create a new account and store the username, email, and user id inside Firebase
+   * 
    * @param e Event interface
+   * @return A new account created inside Firebase
    */
   const signUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -64,6 +65,9 @@ export default function CreateAccount() {
       });
   };
 
+  /**
+   * Check the login status of the account
+   */
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setHaveUser(true);

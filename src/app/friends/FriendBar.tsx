@@ -46,6 +46,10 @@ function a11yProps(index: number) {
 export default function FriendBar() {
   const [value, setValue] = useState(0);
 
+  /**
+   * Update the new changes to the input
+   * @param newValue The new value inputted
+   */
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

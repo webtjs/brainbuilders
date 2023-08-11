@@ -21,6 +21,7 @@ export default function PracticePage({ params }: any) {
     },
   ];
 
+  //set the state 
   const [flashcards, setFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
   const [newFlashcards, setNewFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
   const [easyFlashcards, setEasyFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
@@ -32,6 +33,9 @@ export default function PracticePage({ params }: any) {
   const name = params.deckId;
   const [number, setNumber] = useState(0);
 
+  /**
+   * Display all of the unreviewed flashcards
+   */
   const handle_new = async () => {
     setFlashcards(newFlashcards);
     setButtonVarNew("contained");
@@ -41,6 +45,9 @@ export default function PracticePage({ params }: any) {
     console.log(number);
   };
 
+  /**
+   * Display all of the flashcards whose level is easy
+   */
   const handle_easy = async () => {
     setFlashcards(easyFlashcards);
     setButtonVarNew("outlined");
@@ -50,6 +57,9 @@ export default function PracticePage({ params }: any) {
     console.log(number);
   };
 
+  /**
+   * Display all of the flashcards whose level is hard
+   */
   const handle_hard = async () => {
     setFlashcards(hardFlashcards);
     setButtonVarNew("outlined");
@@ -59,6 +69,11 @@ export default function PracticePage({ params }: any) {
     console.log(number);
   };
 
+  /**
+   * Filter the flashcards displayed based on the filtered result
+   * 
+   * @return display the front side of the front card being displayed
+   */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {

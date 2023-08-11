@@ -29,9 +29,11 @@ export default function Login() {
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   /**
-   * User sign in using firebase
-   *
-   * @param e Event interface
+   * Enable user to be authenticated based on the input in the login field
+   * 
+   * @param[in] e Event interface
+   * @returns Redirects to the main page of the app if logged in successfully, else
+   *          show an error message
    */
   const signIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -55,6 +57,9 @@ export default function Login() {
     });
   };
 
+  /**
+   * Set the login state of the user
+   */
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setHaveUser(true);
