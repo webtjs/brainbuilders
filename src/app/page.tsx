@@ -17,6 +17,9 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 
+/**
+ * Login page of the application
+ */
 export default function Login() {
   const [loginCred, setLoginCred] = useState("");
   const [password, setPassword] = useState("");
@@ -28,8 +31,9 @@ export default function Login() {
   /**
    * Enable user to be authenticated based on the input in the login field
    * 
-   * @param e The login status of the user
-   * @returns To the mainpage of the account if logged in
+   * @param[in] e Event interface
+   * @returns Redirects to the main page of the app if logged in successfully, else
+   *          show an error message
    */
   const signIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();

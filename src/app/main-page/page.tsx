@@ -12,28 +12,13 @@ import { auth, db } from "@/config/firebase";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 
+/**
+ * Main page of the application
+ */
 export default function MainPage() {
   const [haveUser, setHaveUser] = useState(true);
   const [username, setUsername] = useState("Guest");
 
-  /**
-   * Enable user to be logged out when lotout button is clicked
-   */
-  const logOut = async () => {
-    await signOut(auth)
-      .then(() => {
-        setHaveUser(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  /**
-   * Display all of the current flashcard decks
-   * 
-   * @return Display the deckID of each deck
-   */
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -56,7 +41,7 @@ export default function MainPage() {
       <div className="App">
         <Banner username={username} />
         <div className="user">
-          <AccountMenu haveUser={haveUser} />
+          <AccountMenu haveUser={haveUser} username={username} />
         </div>
         <Container maxWidth="lg">
           <DeckList />

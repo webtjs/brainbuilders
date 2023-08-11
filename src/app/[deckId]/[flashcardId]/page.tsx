@@ -21,6 +21,12 @@ import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
 
+/**
+ * Page where users can edit an existing flashcard for their decks
+ *
+ * @param params Parameters from the url. In this case, the flashcard ID from the
+ * url is passed as one of the parameters.
+ */
 export default function EditFlashcard({ params }: any) {
   //New flashcards
   const [front, setFront] = useState("");

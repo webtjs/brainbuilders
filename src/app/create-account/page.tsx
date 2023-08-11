@@ -19,6 +19,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+/**
+ * Create account page for the application
+ */
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -28,8 +31,9 @@ export default function CreateAccount() {
   const [emailError, setEmailError] = useState("");
 
   /**
-   * Create a new account and store the username inside Firebase and email and password in authentication system
+   * Create a new account and store the username, email, and user id inside Firebase
    * 
+   * @param e Event interface
    * @return A new account created inside Firebase
    */
   const signUp = async (e: { preventDefault: () => void }) => {

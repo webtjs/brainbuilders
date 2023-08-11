@@ -7,18 +7,24 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 
 /**
- * Display the user's account detail 
- * 
- * @param[in] A boolean state of whether there's user logged in or not
+ * Displays an account icon at the top right of the screen
+ *
+ * @param[in] haveUser A boolean to indicate if there is a user logged in currently
+ * @param username The user's username
  */
-export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
+export default function AccountMenu({
+  haveUser,
+  username,
+}: {
+  haveUser: boolean;
+  username: string;
+}) {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -55,7 +61,11 @@ export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <Avatar
+              sx={{ width: 32, height: 32 }}
+              alt={username}
+              src="Hi"
+            ></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -94,9 +104,6 @@ export default function AccountMenu({ haveUser }: { haveUser: boolean }) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
         <MenuItem
           onClick={() => {
             handleClose();

@@ -22,6 +22,9 @@ import {
   DialogActions,
 } from "@mui/material";
 
+/**
+ * Displays all of the user's decks and a create deck feature
+ */
 export default function DeckList() {
   const [deckList, setDeckList] = useState<{ id: string }[]>([]);
   const [dmOpen, setDmOpen] = useState(false);
@@ -30,9 +33,9 @@ export default function DeckList() {
   const [inputError, setInputError] = useState("");
 
   /**
-   * Create new flashcard decks
+   * Create a new flashcard deck
    * 
-   * @returns Store the newly created flashcard fields inside Firebase
+   * @returns Store the newly created flashcard deck inside Firebase
    */
   const submitDeck = () => {
     setDmOpen(false);

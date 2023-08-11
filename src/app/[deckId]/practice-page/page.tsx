@@ -26,6 +26,9 @@ export default function PracticePage({ params }: any) {
   const [newFlashcards, setNewFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
   const [easyFlashcards, setEasyFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
   const [hardFlashcards, setHardFlashcards] = useState<any>(SAMPLE_FLASHCARDS);
+  const [buttonVarNew, setButtonVarNew] = useState<any>("contained");
+  const [buttonVarEasy, setButtonVarEasy] = useState<any>("outlined");
+  const [buttonVarHard, setButtonVarHard] = useState<any>("outlined");
   const [userId, setUserId] = useState("");
   const name = params.deckId;
   const [number, setNumber] = useState(0);
@@ -35,6 +38,9 @@ export default function PracticePage({ params }: any) {
    */
   const handle_new = async () => {
     setFlashcards(newFlashcards);
+    setButtonVarNew("contained");
+    setButtonVarEasy("outlined");
+    setButtonVarHard("outlined");
     setNumber(1);
     console.log(number);
   };
@@ -44,6 +50,9 @@ export default function PracticePage({ params }: any) {
    */
   const handle_easy = async () => {
     setFlashcards(easyFlashcards);
+    setButtonVarNew("outlined");
+    setButtonVarEasy("contained");
+    setButtonVarHard("outlined");
     setNumber(2);
     console.log(number);
   };
@@ -53,6 +62,9 @@ export default function PracticePage({ params }: any) {
    */
   const handle_hard = async () => {
     setFlashcards(hardFlashcards);
+    setButtonVarNew("outlined");
+    setButtonVarEasy("outlined");
+    setButtonVarHard("contained");
     setNumber(1);
     console.log(number);
   };
@@ -120,9 +132,15 @@ export default function PracticePage({ params }: any) {
       <h2>Currently reviewing flashcards for {name}</h2>
       <h4>Select type of cards</h4>
       <ButtonGroup disableElevation variant="outlined">
-        <Button onClick={handle_new}>Cards not reviewed</Button>
-        <Button onClick={handle_easy}>level: easy</Button>
-        <Button onClick={handle_hard}>level: hard</Button>
+        <Button onClick={handle_new} variant={buttonVarNew}>
+          Cards not reviewed
+        </Button>
+        <Button onClick={handle_easy} variant={buttonVarEasy}>
+          level: easy
+        </Button>
+        <Button onClick={handle_hard} variant={buttonVarHard}>
+          level: hard
+        </Button>
       </ButtonGroup>
       <br></br> <br></br>
       <h4>Cards list</h4>

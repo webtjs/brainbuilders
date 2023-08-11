@@ -2,7 +2,6 @@
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FriendList from "./FriendList";
 import FriendRequests from "./FriendRequests";
@@ -41,6 +40,9 @@ function a11yProps(index: number) {
   };
 }
 
+/**
+ * A tab to switch between friend list and friend requests
+ */
 export default function FriendBar() {
   const [value, setValue] = useState(0);
 

@@ -13,6 +13,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase";
 
+/**
+ * User is able to view incoming friend requests and accept/reject them
+ */
 export default function FriendRequests() {
   const [userId, setUserId] = useState("");
   const [requests, setRequests] = useState<string[]>([]);

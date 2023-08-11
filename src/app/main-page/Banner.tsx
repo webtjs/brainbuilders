@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { AppBar, Toolbar } from "@mui/material";
 
-//Import from firebase
-import { auth } from "@/config/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-
+/**
+ * Displays a banner at the top of the page
+ *
+ * @param username The username of the user
+ */
 export default function Banner({ username }: { username: string }) {
   return (
     <header>
